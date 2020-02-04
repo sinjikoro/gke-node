@@ -10,3 +10,21 @@ steps:
       - --location=asia-northeast1-a
       - --cluster=nodejs-cluster
     
+      ---
+        apiVersion: "v1"
+        kind: "Service"
+        metadata:
+          name: "gke-node-service"
+          namespace: "default"
+          labels:
+            app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
+        spec:
+          ports:
+          - protocol: "TCP"
+            port: 8080
+            targetPort: 8080
+          selector:
+            app: "gke-node"
+          type: "LoadBalancer"
+          loadBalancerIP: ""
+        
