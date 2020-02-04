@@ -1,7 +1,12 @@
 steps:
     - name: 'gcr.io/cloud-builders/docker'
       args: ["build", "-t", "gcr.io/ultra-bearing-264000/gke-node", "."]
+    - name: 'gcr.io/cloud-builders/docker'
+      args: ["push", "gcr.io/ultra-bearing-264000/gke-node"]
+    - name: 'gcr.io/cloud-builders/gke-deploy:stable'
+      args:
       - run
       - --image=gcr.io/ultra-bearing-264000/gke-node:commit SHA
       - --location=asia-northeast1-a
       - --cluster=nodejs-cluster
+    
